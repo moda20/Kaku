@@ -1,7 +1,7 @@
 let Constants = {};
 
 try {
-  Constants.API = require('../../config/api_config.production.json');
+  Constants.API = require('../../config/api_config.development.json');
   Constants.GA = require('../../config/ga_config.json');
 }
 catch(e) {
@@ -19,6 +19,9 @@ Constants.KEY_MAP = {
   39: 'ARROW_RIGHT',
   40: 'ARROW_DOWN'
 };
+
+Constants.KODIPORT = "8080";
+Constants.KODIIP="192.168.1.7";
 
 // If users forget to change from *.sample.json to *.production.json,
 // require will throw out error here, because if we don't have these

@@ -24,6 +24,7 @@ import AppCore from './modules/AppCore';
 import Searcher from './modules/Searcher';
 import AutoUpdater from './modules/AutoUpdater';
 import Tracker from './modules/Tracker';
+import LocalVideos from "./views/components/LocalVideos"
 
 const _ = L10nManager.get.bind(L10nManager);
 
@@ -261,6 +262,13 @@ class KakuApp extends Component {
                 className="tab-pane active"
                 id="tab-home">
                   <TopRankingComponent/>
+              </div>
+
+              <div
+                  role="tabpanel"
+                  className="tab-pane"
+                  id="tab-localvids">
+                <LocalVideos/>
               </div>
               <div
                 role="tabpanel"
