@@ -76,8 +76,12 @@ Please check our [wiki](https://github.com/EragonJ/Kaku/wiki) here for more info
 - Vimeo
 - SoundCloud
 - MixCloud
+- Local Video recognition
 - ... keep adding :)
 
+# Supported Players
+
+- KODI 
 # Supported Languages
 
 - 繁體中文 (沒錯，這個程式 Made in Taiwan XD)

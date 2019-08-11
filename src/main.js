@@ -25,7 +25,7 @@ import Searcher from './modules/Searcher';
 import AutoUpdater from './modules/AutoUpdater';
 import Tracker from './modules/Tracker';
 import LocalVideos from "./views/components/LocalVideos"
-
+import { ToastContainer } from 'react-toastify';
 const _ = L10nManager.get.bind(L10nManager);
 
 // views > components
@@ -250,7 +250,7 @@ class KakuApp extends Component {
         </div>
         <div className="row row-no-padding bottom-row">
           <div className="left">
-            <div className="sidebar">
+            <div className="sidebar" style={{height:"calc(100vh - 40px)"}}>
               <MenusComponent/>
               <PlayerComponent/>
             </div>
@@ -327,4 +327,9 @@ class KakuApp extends Component {
   }
 }
 
-ReactDOM.render(<KakuApp/>, contentPageDOM);
+ReactDOM.render(
+    <div>
+      <ToastContainer/>
+      <KakuApp/>
+    </div>,
+    contentPageDOM);

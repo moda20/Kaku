@@ -23,6 +23,8 @@ const Remote = Electron.remote;
 const App = Remote.app;
 const AppDialog = Remote.dialog;
 const _ = L10nManager.get.bind(L10nManager);
+import kodiPlayerManager from '../../../modules/KodiPlayerManager';
+
 
 class SettingsComponent extends Component {
   constructor(props) {
@@ -45,6 +47,13 @@ class SettingsComponent extends Component {
     this._onClickToSyncDropboxData = this._onClickToSyncDropboxData.bind(this);
     this._onClickToUpdatePlayer = this._onClickToUpdatePlayer.bind(this);
     this._onClickToResetDatabse = this._onClickToResetDatabse.bind(this);
+
+    this.state={
+      kodi:{
+        ip:"",
+        port:""
+      }
+    }
   }
 
   componentDidMount() {
@@ -101,6 +110,21 @@ class SettingsComponent extends Component {
         Remote.getCurrentWindow().setAlwaysOnTop(newPreference);
       }
     });
+
+    kodiPlayerManager.getKodiSettings().then(data=>{
+      console.log(data);
+      this.setState({
+        kodi:{
+          ip:data.settings.ip,
+          port:data.settings.port
+        }
+      })
+    })
+  }
+
+
+  _saveKodiSettings({ip,port}){
+    kodiPlayerManager.saveKodiSettings({ip:ip,port:port}) ;
   }
 
   _makeLanguageOptions(languages, defaultLanguage) {
@@ -516,6 +540,38 @@ class SettingsComponent extends Component {
                       </li>
                     </ul>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-offset-3 col-sm-3">
+                <div className="input-group">
+                  <span className="input-group-addon" id="kodi-ip">KODI IP</span>
+                  <input type="text" className="form-control" value={this.state.kodi.ip} onChange={(event)=>{
+                    let x = Object.assign({},this.state.kodi);
+                    x.ip=event.target.value;
+                    this.setState({
+                      kodi:x
+                    })
+                  }} placeholder="IP : 192.168.1.12" aria-describedby="kodi-ip" />
+                </div>
+                <div className="input-group">
+                  <span className="input-group-addon" id="kodi-port">KODI PORT</span>
+                  <input type="text" className="form-control"  value={this.state.kodi.port} onChange={(event)=>{
+                    let x = Object.assign({},this.state.kodi);
+                    x.port=event.target.value;
+                    this.setState({
+                      kodi:x
+                    })
+                  }} placeholder="port : 8000" aria-describedby="kodi-port" />
+                  <span className="input-group-btn">
+                    <button className="btn btn-default" onClick={()=>{
+                      this._saveKodiSettings({
+                        ip:this.state.kodi.ip,
+                        port:this.state.kodi.port
+                      })
+                    }} type="button">save</button>
+                  </span>
                 </div>
               </div>
             </div>
